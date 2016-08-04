@@ -645,7 +645,7 @@ queue_close(Transport, MqSState = #ezmq_socket{recv_q = Q}) ->
     MqSState#ezmq_socket{recv_q = Q1}.
 
 dequeue(MqSState = #ezmq_socket{recv_q = Q}) ->
-    lager:debug("TRANS: ~p, PENDING: ~p", [MqSState#ezmq_socket.transports, Q]),
+    lager:debug("TRANS: ~p, PENDING: ~p", [MqSState#ezmq_socket.transports, length(Q)]),
     case transports_while(fun do_dequeue/2, Q, empty, MqSState) of
         {{Transport, Value}, Q1} ->
             MqSState0 = MqSState#ezmq_socket{recv_q = Q1},
